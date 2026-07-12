@@ -45,7 +45,7 @@ describe('Testes da API de Blog', () => {
             .set('Authorization', `Bearer ${tokenProfessor}`)
             .send({
                 title: 'Teste Unitário',
-                content: 'Conteúdo de teste sobre fotossíntese'
+                content: 'Conteúdo de teste sobre fotossintese'
             });
 
         expect(response.statusCode).toBe(201);
