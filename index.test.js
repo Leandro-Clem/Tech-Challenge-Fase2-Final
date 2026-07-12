@@ -1,13 +1,18 @@
 const request = require('supertest');
 const app = require('./index');
 const jwt = require('jsonwebtoken');
-const { SECRET } = require('./authMiddleware'); 
+const { SECRET } = require('./authMiddleware');
+const { sequelize } = require('./database'); // Importe a instância do sequelize
 
 describe('Testes da API de Blog', () => {
     
+    // Garante que o banco seja sincronizado antes dos testes começarem
+    beforeAll(async () => {
+        await sequelize.sync({ force: true }); // Cria as tabelas do zero
+    });
+
     test('Deve criar um novo post', async () => {
-        // Gerando um token fixo para o ambiente de teste
-        const token = jwt.sign({ username: 'teste', role: 'professor' }, SECRET);
+        const token = jwt.sign({ username: 'leandro', role: 'professor' }, SECRET);
 
         const response = await request(app)
             .post('/posts')
@@ -15,15 +20,14 @@ describe('Testes da API de Blog', () => {
             .send({
                 title: 'Teste Unitário',
                 content: 'Conteúdo de teste'
-                // O campo 'author' será preenchido automaticamente pelo seu middleware no index.js
             });
-
-        // Log para debug caso falhe novamente
-        if (response.statusCode !== 201) {
-            console.log('Resposta do erro:', response.body);
-        }
 
         expect(response.statusCode).toBe(201);
         expect(response.body.title).toBe('Teste Unitário');
+    });
+
+    // Fecha a conexão após os testes para o Jest não travar
+    afterAll(async () => {
+        await sequelize.close();
     });
 });
