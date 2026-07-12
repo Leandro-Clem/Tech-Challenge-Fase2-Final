@@ -1,17 +1,22 @@
-# Tech-Challenge-Fase2-Final
-Repositorio para o desafio
+# Tech Challenge - Blog API (FIAP)
 
-# 1. Verifica o status para ver os arquivos travados
-git status
+Projeto desenvolvido como parte da Pós-Graduação Full Stack da FIAP. Esta é uma API RESTful completa construída com Node.js e Express, utilizando SQLite como banco de dados.
 
-# 2. Força a remoção de qualquer trava de índice do git (isso resolve 90% dos casos de erro de permissão)
-del .git\index.lock
+## Tecnologias utilizadas
+- Node.js
+- Express
+- Sequelize (ORM para SQLite)
+- Jest (Testes unitários)
+- Docker
 
-# 3. Adiciona todos os arquivos que criamos
-git add .
+## Como rodar o projeto
+1. Clone este repositório: `git clone <url-do-seu-repo>`
+2. Instale as dependências: `npm install`
+3. Inicie o servidor: `npm start`
+4. Execute os testes: `npm test`
 
-# 4. Faz o commit (se ele reclamar de novo, tente colocar uma mensagem curta)
-git commit -m "Commit de finalizacao do projeto"
-
-# 5. Finalmente, o push forçado
-git push origin main
+## Funcionalidades
+- CRUD completo de postagens (Create, Read, Update, Delete).
+- Busca de postagens por palavra-chave.
+- Testes automatizados com cobertura de 20%.
+- Containerização pronta com Docker.
