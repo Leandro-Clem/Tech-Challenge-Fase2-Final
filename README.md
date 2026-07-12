@@ -38,6 +38,13 @@ Projeto desenvolvido como parte da Pós-Graduação Full Stack da FIAP. Esta é 
 
 > **Autenticação:** Para rotas de Professor, utilize o Header: `Authorization: Bearer <seu-token-aqui>`
 
+##  Estratégia de Segurança e Arquitetura
+
+* **Autenticação JWT:** Implementada para garantir que apenas usuários autenticados interajam com recursos protegidos. O token possui expiração de 1 hora para minimizar riscos.
+* **Controle de Acesso (RBAC):** Utilizamos um middleware customizado (`authorize`) que intercepta requisições e verifica a `role` presente no payload do token, garantindo que usuários com perfil de 'aluno' não possam realizar modificações no banco de dados.
+* **Integridade dos Dados:** O campo `author` é injetado automaticamente via middleware, impedindo que o cliente manipule a autoria dos posts.
+* **Testes Automatizados:** A suíte de testes com Jest valida não apenas o sucesso das operações, mas também a integridade das rotas protegidas.
+
 ## Evidências de Teste
 
 <img width="1258" height="939" alt="image" src="https://github.com/user-attachments/assets/8a0c23f7-13b0-41eb-8456-4427b8e03c13" />
