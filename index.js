@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 const { sequelize, Post } = require('./database');
 const { authorize, SECRET } = require('./authMiddleware');
 
@@ -20,14 +21,44 @@ app.post('/login', (req, res) => {
 
 // Listar todos
 app.get('/posts', async (req, res) => {
-    const posts = await Post.findAll();
-    res.json(posts);
+    try {
+        const posts = await Post.findAll();
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao listar posts', error: error.message });
+    }
+});
+
+// Busca por palavra-chave
+// IMPORTANTE: precisa vir ANTES de '/posts/:id',
+// senão o Express interpreta "search" como se fosse um id.
+app.get('/posts/search', async (req, res) => {
+    try {
+        const termo = req.query.q || '';
+
+        const posts = await Post.findAll({
+            where: {
+                [Op.or]: [
+                    { title:   { [Op.like]: `%${termo}%` } },
+                    { content: { [Op.like]: `%${termo}%` } }
+                ]
+            }
+        });
+
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar posts', error: error.message });
+    }
 });
 
 // Buscar por ID
 app.get('/posts/:id', async (req, res) => {
-    const post = await Post.findByPk(req.params.id);
-    post ? res.json(post) : res.status(404).json({ message: 'Post não encontrado' });
+    try {
+        const post = await Post.findByPk(req.params.id);
+        post ? res.status(200).json(post) : res.status(404).json({ message: 'Post não encontrado' });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar post', error: error.message });
+    }
 });
 
 // Criar
@@ -44,7 +75,9 @@ app.post('/posts', authorize('professor'), async (req, res) => {
 app.put('/posts/:id', authorize('professor'), async (req, res) => {
     try {
         const [updated] = await Post.update(req.body, { where: { id: req.params.id } });
-        updated ? res.json({ message: 'Atualizado com sucesso' }) : res.status(404).json({ message: 'Não encontrado' });
+        updated
+            ? res.status(200).json({ message: 'Atualizado com sucesso' })
+            : res.status(404).json({ message: 'Não encontrado' });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -54,9 +87,8 @@ app.put('/posts/:id', authorize('professor'), async (req, res) => {
 app.delete('/posts/:id', authorize('professor'), async (req, res) => {
     try {
         const deleted = await Post.destroy({ where: { id: req.params.id } });
-        
+
         if (deleted) {
-            // Agora devolvemos status 200 e uma mensagem amigável
             res.status(200).json({ message: `O post com id ${req.params.id} foi excluído com sucesso.` });
         } else {
             res.status(404).json({ message: 'Post não encontrado' });

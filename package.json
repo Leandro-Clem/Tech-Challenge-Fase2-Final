@@ -1,14 +1,23 @@
 {
-  "name": "tech-challenger-leandro-clemente",
+  "name": "tech-challenge-blog-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API REST de blogging para professores da rede pública - Tech Challenge Fase 2 (FIAP Pós Full Stack Development)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "nodejs",
+    "express",
+    "sequelize",
+    "jwt",
+    "rest-api",
+    "docker",
+    "fiap"
+  ],
+  "author": "Leandro Clemente",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
