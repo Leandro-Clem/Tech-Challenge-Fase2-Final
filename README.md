@@ -37,3 +37,11 @@ Projeto desenvolvido como parte da Pós-Graduação Full Stack da FIAP. Esta é 
 | `DELETE` | `/posts/:id` | Exclui postagem | Professor |
 
 > **Autenticação:** Para rotas de Professor, utilize o Header: `Authorization: Bearer <seu-token-aqui>`
+
+## Evidências de Teste
+
+<img width="1258" height="939" alt="image" src="https://github.com/user-attachments/assets/8a0c23f7-13b0-41eb-8456-4427b8e03c13" />
+
+<img width="1245" height="640" alt="image" src="https://github.com/user-attachments/assets/f2f90c48-0bc8-4862-ab85-dbb68e3f393f" />
+
+
