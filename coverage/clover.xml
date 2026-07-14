@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1783891895209" clover="3.2.0">
-  <project timestamp="1783891895209" name="All files">
+<coverage generated="1783995201146" clover="3.2.0">
+  <project timestamp="1783995201146" name="All files">
     <metrics statements="70" coveredstatements="60" conditionals="27" coveredconditionals="20" methods="12" coveredmethods="10" elements="109" coveredelements="90" complexity="0" loc="70" ncloc="70" packages="1" files="3" classes="3"/>
     <file name="authMiddleware.js" path="C:\Users\Windows 11\Desktop\Tech-Challenge-Fase2-Final\authMiddleware.js">
       <metrics statements="17" coveredstatements="15" conditionals="13" coveredconditionals="11" methods="3" coveredmethods="3"/>
